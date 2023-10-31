@@ -19,6 +19,8 @@ export const SortableImage = (props) => {
 
  return (
   <Image
+   index={props.index}
+   imageNum={props.imageNum}
    ref={setNodeRef}
    style={style}
    {...props}

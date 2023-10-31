@@ -16,15 +16,15 @@ import {
  SortableContext,
  rectSortingStrategy,
 } from '@dnd-kit/sortable';
-import ImageContainer from "./ImageContainer"
+
 import { SortableImage } from "./SortableImage"
 import Grid from "./Grid";
+import Image from "./Image";
 
 
 const Gallery = () => {
- const { imageIndex } = useContext(GalleryContext)
+ const { imageIndex, setImageIndex } = useContext(GalleryContext)
  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
- const [items, setItems] = useState(imageIndex)
  const [activeId, setActiveId] = useState(null)
 
  const handleDragStart = (event) => {
@@ -35,7 +35,7 @@ const Gallery = () => {
   const { active, over } = event;
 
   if (active.id !== over.id) {
-   setItems((items) => {
+   setImageIndex((items) => {
     const oldIndex = items.indexOf(active.id);
     const newIndex = items.indexOf(over.id);
 
@@ -53,17 +53,17 @@ const Gallery = () => {
  return (
   <>
    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragCancel={handleDragCancel}>
-    <SortableContext items={items} strategy={rectSortingStrategy}>
-     <Grid columns={5}>
+    <SortableContext items={imageIndex} strategy={rectSortingStrategy}>
+     <Grid>
       {imageIndex.map((imageNum, i) => {
-       return <SortableImage key={imageNum} imageNum={imageNum} i={i} />
+       return <SortableImage key={imageNum} imageNum={imageNum} index={i} />
       })}
       <AddImages />
      </Grid>
     </SortableContext>
     <DragOverlay adjustScale={true}>
      {activeId ? (
-      <ImageContainer imageNum={activeId} i={items.indexOf(activeId)} />
+      <Image imageNum={activeId} index={imageIndex.indexOf(activeId)} />
      ) : null}
     </DragOverlay>
    </DndContext>

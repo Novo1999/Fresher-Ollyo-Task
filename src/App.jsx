@@ -23,7 +23,7 @@ export default function App() {
     <GalleryContext.Provider value={contextValue}>
       <main className='bg-white h-screen text-black flex justify-center'>
         <Toaster />
-        <section className="text-2xl px-10 py-4 mt-10 top-[-0.5rem] font-semibold absolute flex flex-col p-10 rounded-lg shadow-2xl mx-10 my-5 w-fit h-fit">
+        <section className="text-2xl px-10 py-4 mt-10 top-[-0.5rem] font-semibold absolute flex flex-col p-0 rounded-lg shadow-2xl mx-10 my-5 w-fit h-fit">
           <Header />
           <Gallery />
         </section>
