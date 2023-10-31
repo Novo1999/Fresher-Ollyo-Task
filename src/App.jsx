@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
 
 import { createContext, useState } from 'react'
 import SingleImage from './Components/SingleImage'
