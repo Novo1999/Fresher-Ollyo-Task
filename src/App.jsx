@@ -1,6 +1,4 @@
 import { Toaster } from 'react-hot-toast'
-
-
 import { createContext, useState } from 'react'
 import SingleImage from './Components/SingleImage'
 
@@ -15,6 +13,7 @@ export default function App() {
   const [currentHovered, setCurrentHovered] = useState(null)
   const [imageIndex, setImageIndex] = useState(Array.from({ length: 11 }, (_, i) => i + 1))
   const [currentImage, setCurrentImage] = useState(1)
+
   const contextValue = {
     currentChecked, setCurrentChecked, currentHovered, setCurrentHovered, imageIndex, setImageIndex, currentImage, setCurrentImage
   }
@@ -27,8 +26,6 @@ export default function App() {
           <Header />
           <Gallery />
         </section>
-
-        {/* Showing the image in a modal window when user clicks */}
         <SingleImage />
       </main>
     </GalleryContext.Provider>
