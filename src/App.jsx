@@ -1,6 +1,8 @@
 import { FcGallery } from 'react-icons/fc'
 import { BiImageAlt } from 'react-icons/bi'
 import { BsFillTrashFill } from 'react-icons/bs'
+import toast, { Toaster } from 'react-hot-toast'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -23,6 +25,7 @@ export default function App() {
       return !currentChecked.includes(value)
     })
     setImageIndex(copyOfImageIndex)
+    toast.success(`Deleted ${currentChecked.length} images`)
     setCurrentChecked([])
   }
 
@@ -47,7 +50,8 @@ export default function App() {
   }
 
   return (
-    <main className='bg-white h-screen text-black flex justify-center'>
+    <main data-theme="cupcake" className='bg-white h-screen text-black flex justify-center'>
+      <Toaster />
 
       {/* TITLE */}
       <section className="text-2xl px-10 py-4 mt-10 top-[-0.5rem] font-semibold absolute flex flex-col p-10 rounded-lg shadow-2xl mx-10 my-5 w-fit h-fit">
