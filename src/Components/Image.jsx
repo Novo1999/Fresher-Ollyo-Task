@@ -1,22 +1,24 @@
-// import { useContext } from "react"
-// import { GalleryContext } from "../App"
-// import Checkbox from "./Checkbox"
-// import createImageSource from "../utils/createImageSource"
+import { forwardRef, useContext } from "react";
+import createImageSource from "../utils/createImageSource";
+import { GalleryContext } from "../App";
 
-// const Image = ({ imageNum, i }) => {
-//  const { setCurrentImage, currentChecked, currentHovered, setCurrentHovered } = useContext(GalleryContext)
-//  return (
-//   <div onClick={() => setCurrentImage(imageNum)} onMouseEnter={() => setCurrentHovered(imageNum)} onMouseLeave={() => setCurrentHovered(0)} className={`mt-3 relative border cursor-pointer shadow-lg w-fit ${i === 0 ? 'row-span-2 col-span-2 w-full flex justify-center items-center' : 'col-span-1'} border-black rounded-lg`} key={imageNum}>
+const Image = forwardRef(({ imageNum, index, faded, style, ...props }, ref) => {
+ const { currentChecked } = useContext(GalleryContext)
+ const inlineStyles = {
+  opacity: faded ? '0.2' : '1',
+  transformOrigin: '0 0',
+  height: index === 0 ? 410 : 200,
+  gridRowStart: index === 0 ? 'span 2' : null,
+  gridColumnStart: index === 0 ? 'span 2' : null,
+  backgroundImage: `url(${createImageSource(Number(imageNum))})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundColor: 'grey',
+  // opacity: currentChecked.includes(Number(imageNum)) ? '0.5' : '',
+  ...style,
+ };
 
-//    {/* CHECKBOX */}
-//    <Checkbox imageNum={imageNum} />
-
-//    {/* Setting an overlay when the image is marked */}
-//    {currentHovered === imageNum ? <div className='absolute w-full h-full top-0 right-0 left-0 bottom-0 bg-black/[.50] animate-fade animate-duration-200 animate-ease-linear rounded-lg'></div> : ''}
-
-//    {/* IMAGE */}
-//    <img onClick={() => document.getElementById('my_modal_2').showModal()} className={`rounded-lg ${currentChecked.includes(imageNum) ? 'opacity-50' : ''} object-cover transition-all duration-300  ${i === 0 ? 'h-96' : 'h-52'}`} src={createImageSource(imageNum)} alt="image" />
-//   </div>
-//  )
-// }
-// export default Image
+ return <div ref={ref} style={inlineStyles} {...props} />;
+})
+export default Image
+Image.displayName = 'Image'

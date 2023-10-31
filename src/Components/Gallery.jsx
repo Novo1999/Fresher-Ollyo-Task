@@ -1,53 +1,74 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import AddImages from "./AddImages"
 import { GalleryContext } from "../App"
-import createImageSource from "../utils/createImageSource"
-import Checkbox from "./Checkbox"
-import { DragDropContext } from "react-beautiful-dnd"
-import { createPortal } from "react-dom"
+import SingleImage from "./SingleImage"
+import {
+ DndContext,
+ closestCenter,
+ MouseSensor,
+ TouchSensor,
+ DragOverlay,
+ useSensor,
+ useSensors,
+} from '@dnd-kit/core';
+import {
+ arrayMove,
+ SortableContext,
+ rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import ImageContainer from "./ImageContainer"
+import { SortableImage } from "./SortableImage"
+import Grid from "./Grid";
 
 
 const Gallery = () => {
- const { imageIndex, setCurrentImage, currentChecked, currentImage, currentHovered, setCurrentHovered } = useContext(GalleryContext)
+ const { imageIndex } = useContext(GalleryContext)
+ const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
+ const [items, setItems] = useState(imageIndex)
+ const [activeId, setActiveId] = useState(null)
 
- const onDragEnd = (result) => {
-
+ const handleDragStart = (event) => {
+  setActiveId(event.active.id);
  }
 
- return (<>
-  <div className="grid gap-4 p-10 sm:grid-cols-2 lg:grid-cols-5 relative">
-   {imageIndex.map((imageNum, i) => {
-    return <div onClick={() => setCurrentImage(imageNum)} onMouseEnter={() => setCurrentHovered(imageNum)} onMouseLeave={() => setCurrentHovered(0)} className={`mt-3 relative border cursor-pointer shadow-lg w-fit ${i === 0 ? 'row-span-2 col-span-2 w-full flex justify-center items-center' : 'col-span-1'} border-black rounded-lg`} key={imageNum}>
+ const handleDragEnd = (event) => {
+  const { active, over } = event;
 
-     {/* CHECKBOX */}
-     <Checkbox imageNum={imageNum} />
+  if (active.id !== over.id) {
+   setItems((items) => {
+    const oldIndex = items.indexOf(active.id);
+    const newIndex = items.indexOf(over.id);
 
-     {/* Setting an overlay when the image is marked */}
-     {currentHovered === imageNum ? <div className='absolute w-full h-full top-0 right-0 left-0 bottom-0 bg-black/[.50] animate-fade animate-duration-200 animate-ease-linear rounded-lg'></div> : ''}
+    return arrayMove(items, oldIndex, newIndex);
+   });
+  }
+  setActiveId(null);
+ }
 
-     {/* IMAGE */}
-     <img onClick={() => document.getElementById('my_modal_2').showModal()} className={`rounded-lg ${currentChecked.includes(imageNum) ? 'opacity-50' : ''} object-cover transition-all duration-300  ${i === 0 ? 'h-96' : 'h-52'}`} src={createImageSource(imageNum)} alt="image" />
-    </div>
-   })}
+ const handleDragCancel = () => {
+  setActiveId(null);
+ }
 
-   {/* ADD IMAGES BLOCK */}
-   <AddImages />
-  </div>
-  <div>
-   {currentImage && createPortal(
-    <dialog id="my_modal_2" className="modal">
-     <div className="modal-box bg-white">
-      <img src={createImageSource(currentImage)} alt="image" />
-      <p className="py-4 text-black">Press ESC key or click outside to close</p>
-     </div>
-     <form method="dialog" className="modal-backdrop">
-      <button>close</button>
-     </form>
-    </dialog>,
-    document.body
-   )}
-  </div>
- </>
+
+ return (
+  <>
+   <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragCancel={handleDragCancel}>
+    <SortableContext items={items} strategy={rectSortingStrategy}>
+     <Grid columns={5}>
+      {imageIndex.map((imageNum, i) => {
+       return <SortableImage key={imageNum} imageNum={imageNum} i={i} />
+      })}
+      <AddImages />
+     </Grid>
+    </SortableContext>
+    <DragOverlay adjustScale={true}>
+     {activeId ? (
+      <ImageContainer imageNum={activeId} i={items.indexOf(activeId)} />
+     ) : null}
+    </DragOverlay>
+   </DndContext>
+   <SingleImage />
+  </>
  )
 }
 export default Gallery
