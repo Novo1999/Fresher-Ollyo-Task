@@ -6,6 +6,7 @@ import { GalleryContext } from "../App"
 const SingleImage = () => {
  const { currentImage } = useContext(GalleryContext)
 
+ // if user clicks on an image show it in a portal
  return (
   <div>
    {currentImage && createPortal(

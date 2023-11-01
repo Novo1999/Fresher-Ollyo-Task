@@ -11,7 +11,11 @@ const deleteImage = (
     return !currentChecked.includes(Number(value))
   })
   setImageIndex(copyOfImageIndex)
-  toast.success(`Deleted ${currentChecked.length} images`)
+  toast.success(
+    `Deleted ${currentChecked.length} ${
+      currentChecked.length === 1 ? 'image' : 'images'
+    }`
+  )
   setCurrentChecked([])
 }
 
