@@ -2,7 +2,6 @@ const addToChecked = (e, currentChecked, setCurrentChecked) => {
   const value = Number(e.target.value)
   // creating a copy of current checked images so it is possible to add to the state
   const copyOfChecked = [...currentChecked]
-  console.log(currentChecked)
   // finding the index of the value that is already in the array, if its in the array, remove it
   const toRemoveIndex = copyOfChecked.indexOf(value)
 

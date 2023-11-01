@@ -2,32 +2,27 @@ import { forwardRef, useContext } from "react";
 import createImageSource from "../utils/createImageSource";
 import { GalleryContext } from "../App";
 import Checkbox from "./Checkbox";
+import Overlay from "./Overlay";
 
 const Image = forwardRef(({ imageNum, index, style, ...props }, ref) => {
- const { setCurrentImage, currentChecked, currentHovered, setCurrentHovered } = useContext(GalleryContext)
+ const { currentChecked, setCurrentHovered } = useContext(GalleryContext)
 
  const inlineStyles = {
-  transformOrigin: '0 0',
-  backgroundImage: `url(${createImageSource(Number(imageNum))})`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
   ...style,
  };
 
  return <div
-
   onMouseEnter={() => setCurrentHovered(imageNum)}
-  onMouseLeave={() => setCurrentHovered(null)} ref={ref}
-  className={`${index === 0 ? 'col-span-2 row-span-2 w-96 h-96' : 'w-full h-full col-span-1'}
-   relative rounded-lg border-2 shadow-lg border-black ${currentChecked.includes(Number(index)) ? 'opacity-50' : ''}`}
-  style={inlineStyles} {...props} >
+  onMouseLeave={() => setCurrentHovered(-1)} ref={ref} style={inlineStyles}
+  className={` ${index === 0 ? 'col-span-1 sm:col-span-2 row-span-1 sm:row-span-2 xl:w-[24.9rem]' : 'col-span-1 w-40 sm:w-fit xl:w-48'}
+   relative flex justify-center rounded-lg border-2 m-auto mt-4 sm:mt-0 shadow-lg border-black ${currentChecked.includes(Number(imageNum)) ? 'opacity-50' : ''} bg-cover bg-center origin-top-left`}
+  {...props} >
   {/* CHECKBOX */}
   <Checkbox imageNum={imageNum} />
   {/* OVERLAY BEHIND THE IMAGE WHEN CLICKED*/}
-  {currentHovered === imageNum ? <div onClick={() => {
-   document.getElementById('my_modal_2').showModal()
-   setCurrentImage(imageNum)
-  }} className='absolute top-0 right-0 left-0 bottom-0 bg-black/[.50] z-0 animate-fade animate-duration-200 animate-ease-linear rounded-lg'></div> : ''}
+  <Overlay imageNum={imageNum} />
+  {/* IMAGE */}
+  <img className={`bg-white rounded-md ${currentChecked.includes(Number(imageNum)) ? 'opacity-50' : ''} h-fit object-cover transition-all duration-300  ${index === 0 ? 'xl:h-[24.9rem]' : 'h-full w-full xl:w-full'} origin-top-left`} src={createImageSource(Number(imageNum))} alt="image" />
  </div>;
 
 })
