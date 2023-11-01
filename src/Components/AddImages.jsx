@@ -13,7 +13,7 @@ const AddImages = () => {
       setImageIndex(INITIAL_ARRAY)
       if (imageIndex.length < 11)
         toast.success('Added back all images')
-    }} className={`flex flex-col justify-center relative items-center border-4 ${isDarkMode ? 'border-white text-white' : 'border-black text-black'} border-dotted rounded-lg cursor-pointer m-auto p-12 sm:p-14  lg:p-10 sm:w-full w-fit h-full`}>
+    }} className={`flex flex-col justify-center relative items-center border-4 ${isDarkMode ? 'border-white text-white' : 'border-black text-black'} border-dotted rounded-lg cursor-pointer m-auto p-12 sm:p-14 min-[420px]:w-60 min-[420px]:h-60 lg:p-10 sm:w-full sm:h-full w-fit h-full`}>
       <span className='text-3xl'>
         <BiImageAlt />
       </span>

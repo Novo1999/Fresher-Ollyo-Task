@@ -17,7 +17,7 @@ const Image = forwardRef(({ imageNum, index, style, ...props }, ref) => {
  return <div
   onMouseEnter={() => setCurrentHovered(imageNum)}
   onMouseLeave={() => setCurrentHovered(-1)} ref={ref} style={inlineStyles}
-  className={` ${index === 0 ? 'col-span-1 sm:col-span-2 row-span-1 sm:row-span-2 xl:w-[24.9rem]' : 'col-span-1 w-40 sm:w-fit xl:w-48'}
+  className={` ${index === 0 ? 'col-span-1 sm:col-span-2 row-span-1 sm:row-span-2 xl:w-[24.9rem]' : 'col-span-1 w-40 min-[420px]:w-60 sm:w-fit xl:w-48'}
    relative flex justify-center rounded-lg border-2 m-auto mt-4 sm:mt-0 shadow-lg ${isDarkMode ? 'border-none' : 'border-black'} bg-cover bg-center origin-top-left`}
   {...props} >
 

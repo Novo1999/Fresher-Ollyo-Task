@@ -33,7 +33,7 @@ const Gallery = () => {
  }), useSensor(TouchSensor, {
   activationConstraint: {
    // Adding the delay will allow the user to scroll the screen and prevent them from accidentally initiate a drag event
-   delay: 200,
+   delay: 100,
    // the drag operation will only be aborted if the touch input is moved by more than 5 pixels during the delay
    tolerance: 5
   }
