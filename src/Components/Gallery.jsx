@@ -21,21 +21,24 @@ import {
 import { SortableImage } from "./SortableImage"
 import Grid from "./Grid";
 import Image from "./Image";
-import useWindowDimensions from "../hooks/useWindowDimension";
 
 
 const Gallery = () => {
  const { imageIndex, setImageIndex } = useContext(GalleryContext)
- // Adding activationConstraint so the click is detected when i click the checkbox, figuring out this part was so challenging to me. The drag event was always initiating when I clicked the checkboxes.
+ // Adding activationConstraint so the click is detected when the user clicks the checkbox, figuring out this part was quite challenging. The drag event was always initiating when I clicked the checkboxes.Now with the activationConstraint, the image drag event only initiates when its moved at least 8px
  const sensors = useSensors(useSensor(MouseSensor, {
   activationConstraint: {
-   distance: 8
+   distance: 8,
   }
  }), useSensor(TouchSensor, {
   activationConstraint: {
-   distance: 8
+   // Adding the delay will allow the user to scroll the screen and prevent them from accidentally initiate a drag event
+   delay: 250,
+   // the drag operation will only be aborted if the touch input is moved by more than 5 pixels during the delay
+   tolerance: 5
   }
  }))
+ // this sets which image is being dropped
  const [activeId, setActiveId] = useState(null)
 
  // DND KIT DRAG EVENTS

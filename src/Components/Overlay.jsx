@@ -7,7 +7,7 @@ const Overlay = ({ imageNum }) => {
   currentHovered === imageNum ? <div onClick={() => {
    document.getElementById('my_modal_2').showModal()
    setCurrentImage(imageNum)
-  }} className='absolute top-0 right-0 left-0 bottom-0 bg-black/[.50] z-0 animate-fade animate-duration-200 animate-ease-linear rounded-md'></div> : ''
+  }} className='absolute top-0 right-0 left-0 bottom-0 bg-black/[.50] z-10 animate-fade animate-duration-200 animate-ease-linear rounded-md'></div> : ''
  )
 }
 export default Overlay

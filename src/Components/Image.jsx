@@ -5,7 +5,7 @@ import Checkbox from "./Checkbox";
 import Overlay from "./Overlay";
 
 const Image = forwardRef(({ imageNum, index, style, ...props }, ref) => {
- const { currentChecked, setCurrentHovered } = useContext(GalleryContext)
+ const { currentChecked, setCurrentHovered, isDarkMode } = useContext(GalleryContext)
 
  const inlineStyles = {
   ...style,
@@ -15,7 +15,7 @@ const Image = forwardRef(({ imageNum, index, style, ...props }, ref) => {
   onMouseEnter={() => setCurrentHovered(imageNum)}
   onMouseLeave={() => setCurrentHovered(-1)} ref={ref} style={inlineStyles}
   className={` ${index === 0 ? 'col-span-1 sm:col-span-2 row-span-1 sm:row-span-2 xl:w-[24.9rem]' : 'col-span-1 w-40 sm:w-fit xl:w-48'}
-   relative flex justify-center rounded-lg border-2 m-auto mt-4 sm:mt-0 shadow-lg border-black ${currentChecked.includes(Number(imageNum)) ? 'opacity-50' : ''} bg-cover bg-center origin-top-left`}
+   relative flex justify-center rounded-lg border-2 m-auto mt-4 sm:mt-0 shadow-lg ${isDarkMode ? 'border-none' : 'border-black'} ${currentChecked.includes(Number(imageNum)) ? 'opacity-50' : ''} bg-cover bg-center origin-top-left`}
   {...props} >
   {/* CHECKBOX */}
   <Checkbox imageNum={imageNum} />

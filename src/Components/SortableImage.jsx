@@ -10,11 +10,12 @@ export const SortableImage = (props) => {
   setNodeRef,
   transform,
   transition,
+
  } = sortable;
 
  const style = {
   transform: CSS.Transform.toString(transform),
-  transition,
+  transition
  };
 
  return (
