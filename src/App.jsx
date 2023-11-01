@@ -11,9 +11,9 @@ export const GalleryContext = createContext(null)
 export default function App() {
   const [currentChecked, setCurrentChecked] = useState([])
   const [currentHovered, setCurrentHovered] = useState(null)
-  const [imageIndex, setImageIndex] = useState(Array.from({ length: 11 }, (_, i) => (i + 1).toString()))
-  const [currentImage, setCurrentImage] = useState(1)
+  const [imageIndex, setImageIndex] = useState(Array.from({ length: 11 }, (_, i) => i.toString()))
 
+  const [currentImage, setCurrentImage] = useState(1)
 
   const contextValue = {
     currentChecked, setCurrentChecked, currentHovered, setCurrentHovered, imageIndex, setImageIndex, currentImage, setCurrentImage

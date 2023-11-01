@@ -2,15 +2,14 @@ import { useContext } from "react"
 import { GalleryContext } from "../App"
 import addToChecked from "../utils/addToChecked"
 
-const Checkbox = ({ index }) => {
+const Checkbox = ({ imageNum }) => {
  const { setCurrentChecked, currentChecked, currentHovered } = useContext(GalleryContext)
 
- if (currentChecked.includes(Number(index)) || Number(currentHovered) === Number(index)) {
-  return (<input
+ if (currentChecked.includes(Number(imageNum)) || Number(currentHovered) === Number(imageNum)) {
+  return (<input data-no-dnd="true"
    onChange={e => {
-    console.log(e.target)
     addToChecked(e, currentChecked, setCurrentChecked)
-   }} value={Number(index)} type="checkbox" checked={currentChecked.includes(Number(index)) ? "checked" : ''} className="checkbox animate-fade animate-duration-200 animate-ease-linear  checkbox-info absolute top-2 left-2 z-20" />
+   }} value={Number(imageNum)} type="checkbox" checked={currentChecked.includes(Number(imageNum)) ? "checked" : ''} className="checkbox animate-fade animate-duration-200 animate-ease-linear image-checkbox checkbox-info absolute top-2 left-2 z-20" />
   )
  }
 

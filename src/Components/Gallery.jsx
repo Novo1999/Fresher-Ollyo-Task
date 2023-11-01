@@ -10,6 +10,7 @@ import {
  DragOverlay,
  useSensor,
  useSensors,
+ PointerSensor,
 } from '@dnd-kit/core';
 import {
  arrayMove,
@@ -24,9 +25,15 @@ import Image from "./Image";
 
 const Gallery = () => {
  const { imageIndex, setImageIndex } = useContext(GalleryContext)
- const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
+ // Adding the pointer sensor and the activationConstraint  so the click is detected when i click the checkbox, this part was so challenging to me. The drag event was always initiating when I clicked the checkboxes.
+ const sensors = useSensors(useSensor(MouseSensor), useSensor(PointerSensor, {
+  activationConstraint: {
+   distance: 8
+  }
+ }), useSensor(TouchSensor))
  const [activeId, setActiveId] = useState(null)
 
+ // DRAG EVENTS
  const handleDragStart = (event) => {
   setActiveId(event.active.id);
  }
@@ -48,6 +55,7 @@ const Gallery = () => {
  const handleDragCancel = () => {
   setActiveId(null);
  }
+
 
 
  return (
