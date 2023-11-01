@@ -7,6 +7,7 @@ const deleteImage = (
   setCurrentChecked
 ) => {
   let copyOfImageIndex = [...imageIndex]
+  // if the images index are not in the current checked array, remove the current checked by filtering
   copyOfImageIndex = copyOfImageIndex.filter((value) => {
     return !currentChecked.includes(Number(value))
   })
