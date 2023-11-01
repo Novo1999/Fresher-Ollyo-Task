@@ -12,11 +12,11 @@ const SingleImage = () => {
    {currentImage >= 0 && createPortal(
     <dialog id="my_modal_2" className="modal">
      <div className="modal-box bg-white">
-      <button onClick={() => currentImage >= 1 && setCurrentImage(+currentImage - 1)} className="btn btn-circle btn-outline absolute left-2 top-40 min-[425px]:top-52 sm:top-64">
+      <button onClick={() => currentImage >= 1 && setCurrentImage(+currentImage - 1)} className="btn btn-circle btn-outline absolute left-2 top-40 min-[375px]:top-52 sm:top-64">
        <AiOutlineLeft />
       </button>
       <img src={createImageSource(Number(currentImage))} alt="image" />
-      <button onClick={() => currentImage < Number(imageIndex.length - 1) && setCurrentImage(+currentImage + 1)} className="btn btn-circle btn-outline absolute right-2 top-40  min-[425px]:top-52 sm:top-64">
+      <button onClick={() => currentImage < Number(imageIndex.length - 1) && setCurrentImage(+currentImage + 1)} className="btn btn-circle btn-outline absolute right-2 top-40  min-[375px]:top-52 sm:top-64">
        <AiOutlineRight />
       </button>
       <p className="py-4 text-black">Press ESC key or click outside to close</p>
