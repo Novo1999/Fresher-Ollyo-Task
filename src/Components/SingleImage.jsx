@@ -6,7 +6,6 @@ import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
 const SingleImage = () => {
  const { currentImage, setCurrentImage, imageIndex } = useContext(GalleryContext)
- console.log(currentImage, Number(imageIndex[1]))
  // if user clicks on an image show it in a portal
  return (
   <div>
