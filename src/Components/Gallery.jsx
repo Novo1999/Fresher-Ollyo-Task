@@ -38,7 +38,7 @@ const Gallery = () => {
    tolerance: 5
   }
  }))
- // this sets which image is being dropped
+ // this sets which image is being dragged and dropped
  const [activeId, setActiveId] = useState(null)
 
  // DND KIT DRAG EVENTS
@@ -55,7 +55,7 @@ const Gallery = () => {
     const oldIndex = items.indexOf(active.id);
     const newIndex = items.indexOf(over.id);
 
-    // the index of the array moves when the drag ends so the images change position
+    // the element of the array moves when the drag ends so the images change position
     return arrayMove(items, oldIndex, newIndex);
    });
   }
