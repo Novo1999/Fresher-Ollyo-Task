@@ -38,7 +38,7 @@ const Gallery = () => {
    tolerance: 5
   }
  }))
- // this sets which image is being dropped
+ // this sets which image is being dragged and dropped
  const [activeId, setActiveId] = useState(null)
 
  // DND KIT DRAG EVENTS
