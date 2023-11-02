@@ -19,7 +19,7 @@ const SingleImage = () => {
       <button onClick={() => currentImage < Number(imageIndex.length - 1) && setCurrentImage(+currentImage + 1)} className="btn btn-circle btn-outline absolute right-2 top-40  min-[375px]:top-52 sm:top-64">
        <AiOutlineRight />
       </button>
-      <p className="py-4 none lg:block text-black">Press ESC key or click outside to close</p>
+      <p className="py-4 hidden lg:block text-black">Press ESC key or click outside to close</p>
      </div>
      <form method="dialog" className="modal-backdrop">
       <button>close</button>
